@@ -1,6 +1,6 @@
 import React from "react";
 
-function CharList() {
+function CharList({ chars, isLoading }) {
   return <div>CharList</div>;
 }
 
