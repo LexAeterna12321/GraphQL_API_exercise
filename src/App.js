@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CharList from "./components/CharList";
 
 import { useQuery } from "@apollo/react-hooks";
@@ -8,9 +8,9 @@ function App() {
   const { loading, error, data } = useQuery(fetchCharsQuery);
 
   return (
-    <div className="App">
+    <div className="App container">
       <h1 className="center-align">Rick and Morty GraphQL exercise</h1>
-      <CharList isLoading={loading} chars={data} />
+      {!loading && data ? <CharList data={data} /> : <div></div>}
       {error && <p>{error.message}</p>}
     </div>
   );
