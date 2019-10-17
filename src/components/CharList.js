@@ -3,7 +3,7 @@ import CharCard from "./CharCard";
 
 function CharList({ data }) {
   const { characters } = data;
-  console.log(data);
+
   return (
     <ul className="container">
       <div className="row">
