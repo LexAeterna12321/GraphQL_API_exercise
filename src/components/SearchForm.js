@@ -1,7 +1,15 @@
 import React from "react";
 import useInputState from "../hooks/useInputState";
+import fetchCharQuery from "../queries/fetchChar";
+import { useQuery } from "@apollo/react-hooks";
+
 function SearchForm() {
-  const [value, handleChange, reset] = useInputState("");
+  const [name, handleChange, reset] = useInputState("");
+
+  const { data, loading, error } = useQuery(fetchCharQuery, {
+    variables: { name }
+  });
+  console.log(data);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -11,6 +19,10 @@ function SearchForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <p>
+        {!loading &&
+          data.characters.results.map(char => <span>{char.name}</span>)}
+      </p>
       <div className="row">
         <div className="col s12">
           Search for Char:
@@ -21,10 +33,13 @@ function SearchForm() {
               name="charName"
               id="charName"
               className="validate white-text text-darken-2"
-              value={value}
+              value={name}
             />
             <label htmlFor="charName">ex. Rick</label>
           </div>
+          <button type="submit" className="waves-effect waves-teal btn">
+            Search
+          </button>
         </div>
       </div>
     </form>
